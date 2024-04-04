@@ -20,7 +20,7 @@ myboot(iter = 10000, x, fun = "mean", alpha = 0.05, cx = 1.5, ...)
 \item{...}{pass additional options to the function}
 }
 \value{
-a plot and a list
+a plot and an invisible list
 }
 \description{
 a function to make interval estimates for parameters by using re-sampling techniques or what has come to be called “bootstrap”, the point estimate is made from the original sample and the interval estimate is made from the re-samples
