@@ -68,7 +68,7 @@ server <- function(input, output) {
          xlab = "Length",
          ylab = "Density",
          main = paste0("SMBUFFALO lengths",", iterations=", iter()),
-         col = rgb(hcol, hcol^2, 0))
+         col = rgb(0, hcol^2, hcol))
   },res = 96)
 
   output$ci <- renderText({
