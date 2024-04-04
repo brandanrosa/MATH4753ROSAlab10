@@ -9,7 +9,7 @@
 #' @param cx font size
 #' @param ... pass additional options to the function
 #'
-#' @return a plot and a list
+#' @return a plot and an invisible list
 #' @export
 #'
 #' @importFrom graphics hist text
