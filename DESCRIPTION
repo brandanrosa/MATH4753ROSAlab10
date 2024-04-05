@@ -15,3 +15,7 @@ Imports:
   shiny
 URL: https://github.com/brandanrosa/MATH4753ROSAlab10
 BugReports: https://github.com/brandanrosa/MATH4753ROSAlab10/issues
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

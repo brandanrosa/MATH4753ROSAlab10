@@ -1,0 +1,109 @@
+---
+title: "Lab 10 - Point and Interval Estimates"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Lab 10 - Maximum Likelihood Estimation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+fig_width: 6 
+fig_height: 4
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6,
+  fig.height = 4,
+  fig.align = "center"
+)
+```
+
+```{r setup}
+library(MATH4753ROSAlab10)
+```
+
+# Introduction
+
+This package produces point and interval estimates from a variety of different functions. Point and interval estimates are a very important part of classical and Bayesian statistics. In this vignette we will investigate different methods of making point and interval estimates according to Maximum Likelihood Theory. That is:
+
+  a. Grid Approximation
+  b. Newton-Raphson Method
+  c. Algebraic First Principals
+  
+Though, we will forego the latter in this package. Throughout this vignette, we will utilize various log-likelihood functions as "support" or "helper" functions to the heavy-weight functions that this package is most concerned with.
+
+# `mymaxlik`
+
+We will look at two examples of this function using different distributions: Binomial and Poisson.
+
+## Binomial
+
+```{r}
+logbin <- function(x,param) log(dbinom(x, prob = param, size = 20))
+
+v <- mymaxlik(x=c(9,10,11),
+         param=seq(0,1,length=1000),
+         lfun=logbin,
+         xlab=expression(pi),
+         main="Binomial",
+         cex.main=1)
+
+v
+```
+
+## Poisson
+
+```{r}
+logpoiss <- function(x,param) log(dpois(x,lambda = param))
+
+k <- mymaxlik(x = c(5,5,6,7),
+              param=seq(0,100,length=1000),
+              lfun=logpoiss,
+              xlab=expression(lambda),
+              main="Poisson",
+              cex.main=2
+              )
+k
+```
+
+For both functions, the returned list:
+
+* `i` is the index for the value of $x$ which maximizes the function parameter, $p$.
+
+* `parami`, at the end, becomes the value of the parameter which we seek
+
+* `yi` is a vector of column [enter appropriate function here], and $y_i$ is the value in the "`ith`" location of the vector.
+
+* `slope` is a vector of slope values, note it contains three positive values and two non-positive ones.
+
+# `mymld`
+
+```{r}
+logpoiss = function(x,param) log(dpois(x,lambda=param)) 
+
+l <- mymld(x = c(5,5,6,7),
+           param=seq(0,100,length=1000),
+           lfun=logpoiss
+           )
+l
+```
+
+This is a more accurate version of the previous previous function. The returned value indicates the value of the desired parameter (label $\theta$ here) which _approximately_ gives the maximum.
+
+# `mymaxlikg`
+
+```{r}
+logbin2=function(theta){log(dbinom(4,prob=theta,size=10)) + log(dbinom(12,prob=theta,size=20)) + log(dbinom(7, prob = theta, size = 15))}
+
+j <- mymaxlikg(theta=seq(0,1,length=10000))
+j
+```
+
+
+
+
+
+
+
+
