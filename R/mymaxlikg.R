@@ -14,7 +14,7 @@
 mymaxlikg <- function(lfun = "logbin2", theta) { # default log lik is a combination bin
 
   nth <- length(theta)  # nu. of values used in theta
-  thmat <- matrix(theta, nr=nth, nc=1, byrow=TRUE) # Matrix of theta
+  thmat <- matrix(theta, nrow=nth, ncol=1, byrow=TRUE) # Matrix of theta
   z <- apply(thmat, 1, lfun) # z holds the log lik values
   zmax <- max(which(z==max(z)))  # finding the INDEX of the max lik
   plot(theta,exp(z),type="l", xlab="p", ylab="exp(y)") # plot of lik

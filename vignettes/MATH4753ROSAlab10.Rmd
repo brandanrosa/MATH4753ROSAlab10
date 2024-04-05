@@ -94,16 +94,67 @@ This is a more accurate version of the previous previous function. The returned 
 # `mymaxlikg`
 
 ```{r}
-logbin2=function(theta){log(dbinom(4,prob=theta,size=10)) + log(dbinom(12,prob=theta,size=20)) + log(dbinom(7, prob = theta, size = 15))}
-
-j <- mymaxlikg(theta=seq(0,1,length=10000))
-j
+ mymaxlikg(theta=seq(0,1,length=10000))
 ```
 
+This function is more general. You can use a grid approximation to make maximum likelihood estimations, provided you create the appropriate helper function (in the example `logbin2()`)
 
+> Note: we can now use independent binomials with different $n$ values assuming the same $p$.
 
+> Also note: the plot is the likelihood not log-likelihood.
 
+# `mymlnorm`
 
+```{r}
+xx <- mymlnorm(x=c(5,7,7,8,10),
+               mu=seq(5,10,length=1000),
+               sig=seq(0.1,4,length=1000),
+               lwd=2,
+               labcex=1,
+               col = "darkgreen"
+               )
+xx
+```
 
+My personal favorite function from this package, `mymlnorm` enables us to find the maximum likelihood estimates for $\mu$ and $\sigma$ when the data are distributed Normally. From the returned list:
 
+* `x` returns the value(s) of $x$ which were inputs for the function.
+
+* `muest` is the estimated parameter $\mu$.
+
+* `sigest` is the estimated parameter $\sigma$.
+
+* `maxl` is the "$y$" value of the maximum likelihood; note it is close to $0$.
+
+# `mynewt`, `myNewnewt`, and `myNRML`
+
+All of these functions do _essentially_ the same thing. The latter two, however, find the derivative internally. Note: the `myNEWnewt` function was my original take on writing a function that indeed finds the derivative internally (I am rather proud I did it!)
+
+I will for brevity, use the `myNRML` function.
+
+```{r}
+ans6 <- myNRML(x0=0.05,
+               delta=0.000001,
+               llik=function(x) log(dpois(3,lambda = x)*dpois(4,lambda = x)),
+               xrange=c(0,1),
+               parameter="lambda")
+
+ans6
+```
+
+The output shows that the $y's$ get infinitesimal as $x$ approaches the MLE.
+
+# `myboot`
+
+The final function in this package utilizes the theory of bootstrapping and re-sampling.
+
+```{r}
+set.seed(39); sam=rnorm(25,mean=25,sd=10)
+
+a7 <- myboot(10000,x=sam,fun="mean",alpha=0.05,xlab="mean",col="pink",cx=1.5) # mac quartz()
+
+a7
+```
+
+The output gives us a confidence interval! 
 
