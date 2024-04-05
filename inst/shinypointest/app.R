@@ -67,7 +67,7 @@ server <- function(input, output) {
     hist(v()$xs,
          xlab = "Length",
          ylab = "Density",
-         main = paste0("SMBUFFALO lengths",", iterations=", iter()),
+         main = paste0("SMBUFFALO Lengths",", Iterations = ", iter()),
          col = rgb(0, hcol^2, hcol))
   },res = 96)
 
